@@ -1,0 +1,6 @@
+com/example/claims/controller/HomeController.class
+com/example/claims/model/Claim.class
+com/example/claims/repository/ClaimRepository.class
+com/example/claims/service/FileStorageService.class
+com/example/claims/ClaimsManagementApplication.class
+com/example/claims/controller/ClaimController.class

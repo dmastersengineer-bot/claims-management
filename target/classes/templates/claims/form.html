@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${claim.id != null} ? 'Edit Claim' : 'Create Claim'">Claim Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0" th:text="${claim.id != null} ? 'Edit Claim #' + ${claim.id} : 'Create New Claim'">Claim Form</h4>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/claims}" th:object="${claim}" method="post" enctype="multipart/form-data">
+                        <input type="hidden" th:field="*{id}"/>
+                        <input type="hidden" th:field="*{fileName}"/>
+
+                        <div class="mb-3">
+                            <label for="claimant" class="form-label">Claimant Name</label>
+                            <input type="text" class="form-control" id="claimant" th:field="*{claimant}" placeholder="Enter claimant full name">
+                            <div class="text-danger small" th:if="${#fields.hasErrors('claimant')}" th:errors="*{claimant}"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="policyNumber" class="form-label">Policy Number</label>
+                                <input type="text" class="form-control" id="policyNumber" th:field="*{policyNumber}" placeholder="e.g. POL-98765">
+                                <div class="text-danger small" th:if="${#fields.hasErrors('policyNumber')}" th:errors="*{policyNumber}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="policyIssuer" class="form-label">Policy Issuer</label>
+                                <input type="text" class="form-control" id="policyIssuer" th:field="*{policyIssuer}" placeholder="e.g. Acme Insurance Co.">
+                                <div class="text-danger small" th:if="${#fields.hasErrors('policyIssuer')}" th:errors="*{policyIssuer}"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="ageOfClaimant" class="form-label">Age of Claimant</label>
+                                <input type="number" class="form-control" id="ageOfClaimant" th:field="*{ageOfClaimant}" placeholder="e.g. 42">
+                                <div class="text-danger small" th:if="${#fields.hasErrors('ageOfClaimant')}" th:errors="*{ageOfClaimant}"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="status" class="form-label">Status</label>
+                                <select class="form-select" id="status" th:field="*{status}">
+                                    <option value="SUBMITTED">SUBMITTED</option>
+                                    <option value="UNDER_REVIEW">UNDER_REVIEW</option>
+                                    <option value="APPROVED">APPROVED</option>
+                                    <option value="REJECTED">REJECTED</option>
+                                </select>
+                                <div class="text-danger small" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="claimReason" class="form-label">Claim Reason</label>
+                            <textarea class="form-control" id="claimReason" th:field="*{claimReason}" rows="3" placeholder="Provide details regarding the claim reason..."></textarea>
+                            <div class="text-danger small" th:if="${#fields.hasErrors('claimReason')}" th:errors="*{claimReason}"></div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="file" class="form-label">Evidence / Supporting Document</label>
+                            <input type="file" class="form-control" id="file" name="file">
+                            <div class="form-text" th:if="${claim.fileName != null}">Current file: <span th:text="${claim.fileName}"></span></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a th:href="@{/claims}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save Claim</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
